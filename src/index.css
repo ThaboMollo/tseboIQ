@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Official tseboIQ Brand Variables */
+:root {
+  /* Colors */
+  --color-primary: #0A1630;
+  --color-primary-light: #12264F;
+  --color-accent: #22B4AE;
+  --color-accent-light: #4BD0CA;
+  --color-neutral-light: #F8FAFC;
+  --color-neutral-medium: #E2E8F0;
+  --color-neutral-dark: #94A3B8;
+  --color-text-dark: #0A1630;
+  --color-text-light: #FFFFFF;
+  --color-success: #10B981;
+  --color-error: #EF4444;
+  
+  /* Gradients */
+  --gradient-hero: linear-gradient(135deg, #0A1630 0%, #12264F 40%, #22B4AE 100%);
+  --gradient-button: linear-gradient(90deg, #22B4AE 0%, #4BD0CA 100%);
+  
+  /* Shadows */
+  --shadow-card: 0px 4px 10px rgba(10, 22, 48, 0.15);
+  --shadow-hover: 0px 6px 16px rgba(34, 180, 174, 0.25);
+  --shadow-glow: 0 0 20px rgba(34, 180, 174, 0.3);
+  
+  /* Typography */
+  --font-heading: 'Poppins', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --line-height-heading: 1.3;
+  --line-height-body: 1.6;
+  
+  /* Transitions */
+  --transition-brand: all 0.25s ease-in-out;
+}
+
+/* Dark mode variables */
+.dark {
+  --color-text-dark: #FFFFFF;
+  --color-text-light: #0A1630;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  line-height: var(--line-height-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Brand Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: var(--line-height-heading);
+  font-weight: 600;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-light);
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background: var(--color-primary);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+}
+
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Focus styles - tseboIQ brand */
+*:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(34, 180, 174, 0.1);
+}
+
+/* Animation utilities */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-in-up {
+  animation: slideInUp 0.4s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out;
+}

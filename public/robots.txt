@@ -1,0 +1,14 @@
+# robots.txt for tseboIQ
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+Disallow: /employer-dashboard
+Disallow: /job-seeker-onboarding
+Disallow: /login
+
+# Sitemap
+Sitemap: https://tseboiq.co.za/sitemap.xml
+
+# Crawl-delay (optional, adjust as needed)
+Crawl-delay: 1

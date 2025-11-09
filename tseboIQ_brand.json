@@ -1,0 +1,83 @@
+{
+  "brand": {
+    "name": "tseboIQ",
+    "theme": "New Navy Intelligence",
+    "colors": {
+      "primary": {
+        "default": "#0A1630",
+        "light": "#12264F"
+      },
+      "accent": {
+        "default": "#22B4AE",
+        "light": "#4BD0CA"
+      },
+      "neutral": {
+        "light": "#F8FAFC",
+        "medium": "#E2E8F0",
+        "dark": "#94A3B8"
+      },
+      "text": {
+        "dark": "#0A1630",
+        "light": "#FFFFFF"
+      },
+      "feedback": {
+        "success": "#10B981",
+        "error": "#EF4444"
+      }
+    },
+    "typography": {
+      "headings": {
+        "font": "Poppins",
+        "weights": ["600", "700"],
+        "lineHeight": 1.3
+      },
+      "body": {
+        "font": "Inter",
+        "weights": ["400", "500"],
+        "lineHeight": 1.6
+      },
+      "scale": {
+        "sm": "0.875rem",
+        "base": "1rem",
+        "lg": "1.125rem",
+        "xl": "1.25rem",
+        "2xl": "1.5rem",
+        "3xl": "1.875rem"
+      }
+    },
+    "effects": {
+      "radius": {
+        "sm": "0.25rem",
+        "md": "0.5rem",
+        "lg": "0.75rem",
+        "xl": "1rem",
+        "2xl": "1.5rem"
+      },
+      "shadows": {
+        "card": "0px 4px 10px rgba(10, 22, 48, 0.15)",
+        "hover": "0px 6px 16px rgba(34, 180, 174, 0.25)"
+      },
+      "transitions": {
+        "default": "all 0.25s ease-in-out"
+      }
+    },
+    "gradients": {
+      "hero": "linear-gradient(135deg, #0A1630 0%, #12264F 40%, #22B4AE 100%)",
+      "button": "linear-gradient(90deg, #22B4AE 0%, #4BD0CA 100%)"
+    },
+    "components": {
+      "button": {
+        "borderRadius": "1rem",
+        "padding": "0.75rem 1.5rem",
+        "fontWeight": "600",
+        "transition": "all 0.25s ease-in-out"
+      },
+      "card": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": "1rem",
+        "shadow": "0px 4px 10px rgba(10, 22, 48, 0.15)",
+        "padding": "1.5rem"
+      }
+    }
+  }
+}

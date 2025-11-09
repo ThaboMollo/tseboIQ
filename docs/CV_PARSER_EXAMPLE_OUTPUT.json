@@ -1,0 +1,121 @@
+{
+  "full_name": "Thabo Mponya",
+  "email": "thabo.mponya@example.com",
+  "phone_number": "0843149934",
+  "address": "Mafikeng, 2745",
+  "nationality": "South African",
+  "gender": "Male",
+  "date_of_birth": "1995-03-15",
+  "profile_summary": "Highly motivated Full Stack Software Developer with expertise in modern web and mobile technologies. Experienced in React, Vue.js, .NET, Flutter, and database management. Passionate about creating efficient, scalable solutions and staying current with emerging technologies.",
+  "skills": [
+    "reactjs",
+    "react",
+    "vuejs",
+    "vue",
+    "c#",
+    ".net",
+    "asp.net",
+    "flutter",
+    "javascript",
+    "typescript",
+    "html",
+    "css",
+    "tailwindcss",
+    "mysql",
+    "mongodb",
+    "sql",
+    "python",
+    "linux",
+    "figma",
+    "git",
+    "github",
+    "rest api",
+    "agile",
+    "scrum"
+  ],
+  "employment_history": [
+    {
+      "company_name": "Digital Solution Foundry",
+      "job_title": "Intermediate Software Engineer",
+      "start_date": "2022-03-01",
+      "end_date": null,
+      "responsibilities": "Develop and maintain web and mobile applications using .NET, SQL, Flutter, and VueJS. Collaborate with cross-functional teams to deliver high-quality software solutions. Implement RESTful APIs and integrate third-party services. Participate in code reviews and mentor junior developers."
+    },
+    {
+      "company_name": "Bahale Codes Software",
+      "job_title": "Full Stack Software Developer",
+      "start_date": "2020-10-01",
+      "end_date": "2021-11-01",
+      "responsibilities": "Designed, developed, and maintained user interfaces using React and Vue.js. Built RESTful APIs using .NET Core and Node.js. Managed MySQL and MongoDB databases. Implemented responsive designs and ensured cross-browser compatibility. Worked in an Agile environment with daily standups and sprint planning."
+    }
+  ],
+  "education": [
+    {
+      "id": "edu-1699123456789-0",
+      "degree": "BSc Information Technology",
+      "institution": "North-West University",
+      "city": "Potchefstroom",
+      "graduation_date": "2022-04-07"
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Ethical Hacking from Scratch",
+      "institution": "Udemy",
+      "start_date": "2020-03-12",
+      "end_date": "2020-04-14"
+    },
+    {
+      "title": "Flutter & Dart – The Complete Guide",
+      "institution": "Udemy",
+      "start_date": "2020-04-01",
+      "end_date": "2020-05-02"
+    },
+    {
+      "title": "Cisco DevNet Associate",
+      "institution": "Cisco",
+      "start_date": "2021-03-16",
+      "end_date": "2021-05-06"
+    },
+    {
+      "title": "React - The Complete Guide",
+      "institution": "Udemy",
+      "start_date": "2019-06-01",
+      "end_date": "2019-07-15"
+    },
+    {
+      "title": "Python for Data Science",
+      "institution": "Coursera",
+      "start_date": "2021-01-10",
+      "end_date": "2021-02-20"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Taahirah Modeling Academy",
+      "url": "https://taahirahmodelingacademy.co.za"
+    },
+    {
+      "name": "Jays Online",
+      "url": "https://www.jaysonline.co.za"
+    },
+    {
+      "name": "Portfolio Website",
+      "url": "https://thabomponya.dev"
+    }
+  ],
+  "references": [
+    {
+      "name": "Mrs. P. Teffu",
+      "company": "Digital Solution Foundry",
+      "phone": "0843149934",
+      "email": "paulinah@digitalsolutionfoundry.com"
+    },
+    {
+      "name": "Miss M. Seleke",
+      "company": "Mafikeng Digital Innovation",
+      "phone": "0793338096",
+      "email": "mmseleke@mafihub.co.za"
+    }
+  ]
+}
