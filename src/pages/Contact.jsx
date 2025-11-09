@@ -23,13 +23,27 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // In production, this would send to your backend
-    console.log('Contact form submitted:', formData)
-    setSubmitted(true)
-    setTimeout(() => {
-      setSubmitted(false)
-      setFormData({ name: '', email: '', subject: '', message: '' })
-    }, 3000)
+    
+    const form = e.target
+    
+    // Submit to Netlify
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(new FormData(form)).toString()
+    })
+      .then(() => {
+        console.log('Contact form submitted successfully')
+        setSubmitted(true)
+        setTimeout(() => {
+          setSubmitted(false)
+          setFormData({ name: '', email: '', subject: '', message: '' })
+        }, 3000)
+      })
+      .catch((error) => {
+        console.error('Form submission error:', error)
+        alert('There was an error submitting your message. Please try again or email us directly at iq.tsebo@gmail.com')
+      })
   }
 
   return (
@@ -68,8 +82,8 @@ export default function Contact() {
                   <Mail className="w-6 h-6 text-secondary" />
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Email Us</h3>
-                <a href="mailto:info@tseboiq.com" className="text-secondary hover:underline">
-                  info@tseboiq.com
+                <a href="mailto:iq.tsebo@gmail.com" className="text-secondary hover:underline">
+                  iq.tsebo@gmail.com
                 </a>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
                   For general inquiries
@@ -164,7 +178,23 @@ export default function Contact() {
                     </p>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form 
+                    name="contact" 
+                    method="POST" 
+                    data-netlify="true"
+                    data-netlify-honeypot="bot-field"
+                    onSubmit={handleSubmit} 
+                    className="space-y-6"
+                  >
+                    {/* Netlify form detection */}
+                    <input type="hidden" name="form-name" value="contact" />
+                    {/* Honeypot field for spam protection */}
+                    <p className="hidden">
+                      <label>
+                        Don&apos;t fill this out if you&apos;re human: <input name="bot-field" />
+                      </label>
+                    </p>
+                    
                     <div>
                       <label htmlFor="name" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                         Your Name *

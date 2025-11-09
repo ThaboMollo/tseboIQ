@@ -61,17 +61,17 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2 text-gray-300">
                 <Mail className="w-4 h-4 text-accent" />
-                <a href="mailto:info@tseboiq.com" className="hover:text-accent transition-brand">
-                  info@tseboiq.com
+                <a href="mailto:iq.tsebo@gmail.com" className="hover:text-accent transition-brand">
+                  iq.tsebo@gmail.com
                 </a>
               </li>
               <li className="flex items-center gap-2 text-gray-300">
                 <Phone className="w-4 h-4 text-accent" />
-                <span>+27 (0) 123 456 789</span>
+                <span>+27 (0) 79 520 8970</span>
               </li>
             </ul>
             {/* Social Links */}
-            <div className="flex gap-4 mt-4">
+            {/* <div className="flex gap-4 mt-4">
               <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" 
                  className="text-gray-300 hover:text-accent transition-brand">
                 <Linkedin className="w-5 h-5" />
@@ -84,7 +84,7 @@ export default function Footer() {
                  className="text-gray-300 hover:text-accent transition-brand">
                 <Facebook className="w-5 h-5" />
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
 

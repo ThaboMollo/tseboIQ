@@ -1,0 +1,35 @@
+# Netlify Configuration File
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  # Build command for Vite React app
+  command = "npm run build"
+  # Directory to publish (Vite default output)
+  publish = "dist"
+
+# Redirect all routes to index.html for React Router
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Form notifications
+# Netlify will automatically send form submissions to the email configured in your Netlify dashboard
+# To set this up:
+# 1. Deploy your site to Netlify
+# 2. Go to Site Settings > Forms
+# 3. Add iq.tsebo@gmail.com as the notification email
+# 4. Enable form notifications
+
+# You can also configure form settings here (optional)
+# [build.environment]
+#   NODE_VERSION = "18"
+
+# Headers for security (optional but recommended)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
