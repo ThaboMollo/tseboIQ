@@ -5,10 +5,18 @@
 
 import { parseCV as localParseCV } from './cvParser.js'
 
-const AFFINDA_API_KEY = import.meta.env.VITE_AFFINDA_API_KEY || 'aff_6dc4b8fe9d8e37f700cd93992be45489b66931b1'
-const AFFINDA_WORKSPACE = import.meta.env.VITE_AFFINDA_WORKSPACE || 'c0c32f27' // Default workspace
+const AFFINDA_API_KEY = import.meta.env.VITE_AFFINDA_API_KEY
+const AFFINDA_WORKSPACE = import.meta.env.VITE_AFFINDA_WORKSPACE
 // Affinda v3 API endpoint for resume parsing
 const AFFINDA_API_URL = 'https://api.affinda.com/v3/documents'
+
+// Validate configuration
+if (!AFFINDA_API_KEY) {
+  console.warn('⚠️ VITE_AFFINDA_API_KEY not set - CV parsing will use local parser only')
+}
+if (!AFFINDA_WORKSPACE) {
+  console.warn('⚠️ VITE_AFFINDA_WORKSPACE not set - CV parsing will use local parser only')
+}
 
 /**
  * Parse CV using Affinda API
@@ -17,6 +25,11 @@ const AFFINDA_API_URL = 'https://api.affinda.com/v3/documents'
  */
 export async function parseWithAffinda(file) {
   try {
+    // Check if Affinda is configured
+    if (!AFFINDA_API_KEY || !AFFINDA_WORKSPACE) {
+      throw new Error('Affinda API not configured. Using local parser.')
+    }
+
     // Validate file
     const validTypes = [
       'application/pdf',

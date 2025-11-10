@@ -14,8 +14,10 @@ import { supabase } from './supabase'
  * @param {object} metadata - Additional user metadata (name, etc.)
  */
 export const signUpWithEmail = async (email, password, metadata = {}) => {
-  if (!supabase) {
-    return { user: null, error: 'Supabase not configured. Please set environment variables.' }
+  if (!supabase || !supabase.auth) {
+    const errorMsg = 'Supabase not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file.'
+    console.error('❌ Auth Error:', errorMsg)
+    return { user: null, error: errorMsg }
   }
 
   try {
@@ -29,9 +31,10 @@ export const signUpWithEmail = async (email, password, metadata = {}) => {
     })
 
     if (error) throw error
+    console.log('✅ User signed up successfully:', data.user?.id)
     return { user: data.user, error: null }
   } catch (error) {
-    console.error('Error signing up with email:', error)
+    console.error('❌ Error signing up with email:', error)
     return { user: null, error: error.message }
   }
 }
@@ -42,8 +45,10 @@ export const signUpWithEmail = async (email, password, metadata = {}) => {
  * @param {string} password - User's password
  */
 export const signInWithEmail = async (email, password) => {
-  if (!supabase) {
-    return { user: null, session: null, error: 'Supabase not configured. Please set environment variables.' }
+  if (!supabase || !supabase.auth) {
+    const errorMsg = 'Supabase not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file.'
+    console.error('❌ Auth Error:', errorMsg)
+    return { user: null, session: null, error: errorMsg }
   }
 
   try {
@@ -53,9 +58,10 @@ export const signInWithEmail = async (email, password) => {
     })
 
     if (error) throw error
+    console.log('✅ User signed in successfully:', data.user?.id)
     return { user: data.user, session: data.session, error: null }
   } catch (error) {
-    console.error('Error signing in with email:', error)
+    console.error('❌ Error signing in with email:', error)
     return { user: null, session: null, error: error.message }
   }
 }
@@ -151,7 +157,8 @@ export const signOut = async () => {
  * Get current authenticated user
  */
 export const getCurrentUser = async () => {
-  if (!supabase) {
+  if (!supabase || !supabase.auth) {
+    console.warn('⚠️ Supabase not initialized - cannot get current user')
     return null
   }
 
@@ -160,7 +167,7 @@ export const getCurrentUser = async () => {
     if (error) throw error
     return user
   } catch (error) {
-    console.error('Error getting current user:', error)
+    console.error('❌ Error getting current user:', error)
     return null
   }
 }
@@ -169,7 +176,8 @@ export const getCurrentUser = async () => {
  * Get current session
  */
 export const getSession = async () => {
-  if (!supabase) {
+  if (!supabase || !supabase.auth) {
+    console.warn('⚠️ Supabase not initialized - cannot get session')
     return null
   }
 
@@ -178,7 +186,7 @@ export const getSession = async () => {
     if (error) throw error
     return session
   } catch (error) {
-    console.error('Error getting session:', error)
+    console.error('❌ Error getting session:', error)
     return null
   }
 }
@@ -187,16 +195,28 @@ export const getSession = async () => {
  * Subscribe to auth state changes
  */
 export const onAuthStateChange = (callback) => {
-  if (!supabase) {
+  if (!supabase || !supabase.auth) {
+    console.warn('⚠️ Supabase not initialized - cannot subscribe to auth changes')
     callback(null)
     return () => {}
   }
 
-  const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-    callback(session?.user || null)
-  })
+  try {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log('🔄 Auth state changed:', event)
+      callback(session?.user || null)
+    })
 
-  return () => subscription.unsubscribe()
+    return () => {
+      if (subscription && typeof subscription.unsubscribe === 'function') {
+        subscription.unsubscribe()
+      }
+    }
+  } catch (error) {
+    console.error('❌ Error subscribing to auth changes:', error)
+    callback(null)
+    return () => {}
+  }
 }
 
 /**

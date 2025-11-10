@@ -6,13 +6,36 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 // Validate required environment variables
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('Missing Supabase configuration. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file')
+  console.error('❌ Missing Supabase configuration. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file')
+  console.error('Current values:', { 
+    url: supabaseUrl ? 'Set' : 'Missing', 
+    key: supabaseAnonKey ? 'Set' : 'Missing' 
+  })
 }
 
-// Create Supabase client
-export const supabase = supabaseUrl && supabaseAnonKey 
-  ? createClient(supabaseUrl, supabaseAnonKey)
-  : null
+// Create Supabase client with error handling
+let supabaseClient = null
+
+try {
+  if (supabaseUrl && supabaseAnonKey) {
+    supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true,
+        storage: window.localStorage
+      }
+    })
+    console.log('✅ Supabase client initialized successfully')
+  } else {
+    console.warn('⚠️ Supabase client not initialized - missing credentials')
+  }
+} catch (error) {
+  console.error('❌ Failed to initialize Supabase client:', error)
+  supabaseClient = null
+}
+
+export const supabase = supabaseClient
 
 // Flag to check if Supabase is configured
 export const isSupabaseConfigured = !!supabase

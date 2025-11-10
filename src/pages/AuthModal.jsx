@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Mail, Lock, User, Eye, EyeOff } from 'lucide-react'
-import { supabase } from '../lib/supabase'
+import { supabase, isSupabaseConfigured } from '../lib/supabase'
 
 export default function AuthModal() {
   const navigate = useNavigate()
@@ -17,6 +17,14 @@ export default function AuthModal() {
 
   const userRole = localStorage.getItem('userRole')
 
+  // Check Supabase configuration on mount
+  useEffect(() => {
+    if (!isSupabaseConfigured) {
+      setError('Authentication service not configured. Please contact support.')
+      console.error('❌ Supabase is not configured. Check your .env file.')
+    }
+  }, [])
+
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
@@ -24,6 +32,13 @@ export default function AuthModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    
+    // Check if Supabase is configured
+    if (!supabase || !supabase.auth) {
+      setError('Authentication service is not available. Please check your configuration.')
+      return
+    }
+
     setLoading(true)
     setError(null)
 

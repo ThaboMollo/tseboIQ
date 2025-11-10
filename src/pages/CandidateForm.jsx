@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Upload, FileText, Loader2, AlertCircle, User, Mail, Phone, MapPin, Briefcase } from 'lucide-react'
 import { parseCV } from '../services/affindaParser'
 import ThemeToggle from '../components/ThemeToggle'
+import SkillsInput from '../components/SkillsInput'
 
 export default function CandidateForm() {
   const navigate = useNavigate()
@@ -45,27 +46,42 @@ export default function CandidateForm() {
     setStep(2)
 
     try {
-      const parsedData = await parseCV(file)
+      console.log('📄 Starting CV parsing...')
+      const result = await parseCV(file)
+      
+      console.log('✅ CV parsing result:', result)
+      
+      // Extract data from result (handles both Affinda and local parser)
+      const parsedData = result.data || result
+      
+      // Split full name into first and last name
+      const fullName = parsedData.full_name || ''
+      const nameParts = fullName.trim().split(' ')
+      const firstName = nameParts[0] || ''
+      const lastName = nameParts.slice(1).join(' ') || ''
       
       // Map parsed data to form structure
-      setFormData({
-        firstName: parsedData.name?.first || '',
-        lastName: parsedData.name?.last || '',
-        email: parsedData.emails?.[0] || '',
-        phone: parsedData.phoneNumbers?.[0] || '',
-        location: parsedData.location?.formatted || '',
-        summary: parsedData.summary || '',
-        skills: parsedData.skills || [],
-        experience: parsedData.workExperience || [],
-        education: parsedData.education || [],
-        certifications: parsedData.certifications || [],
-        languages: parsedData.languages || []
-      })
+      const mappedData = {
+        firstName: firstName,
+        lastName: lastName,
+        email: parsedData.email || '',
+        phone: parsedData.phone_number || '',
+        location: parsedData.address || '',
+        summary: parsedData.profile_summary || '',
+        skills: Array.isArray(parsedData.skills) ? parsedData.skills : [],
+        experience: Array.isArray(parsedData.employment_history) ? parsedData.employment_history : [],
+        education: Array.isArray(parsedData.education) ? parsedData.education : [],
+        certifications: Array.isArray(parsedData.certifications) ? parsedData.certifications : [],
+        languages: Array.isArray(parsedData.languages) ? parsedData.languages : []
+      }
+      
+      console.log('📋 Mapped form data:', mappedData)
+      setFormData(mappedData)
 
       setParsing(false)
       setStep(3)
     } catch (error) {
-      console.error('CV parsing error:', error)
+      console.error('❌ CV parsing error:', error)
       setParseError(error.message || 'Failed to parse CV. Please try again or fill the form manually.')
       setParsing(false)
       setStep(1)
@@ -77,13 +93,18 @@ export default function CandidateForm() {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleSkillsChange = (e) => {
-    const skills = e.target.value.split(',').map(s => s.trim()).filter(s => s)
-    setFormData(prev => ({ ...prev, skills }))
+  const handleSkillsChange = (newSkills) => {
+    setFormData(prev => ({ ...prev, skills: newSkills }))
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    
+    // Validate skills
+    if (formData.skills.length === 0) {
+      setParseError('Please add at least one skill')
+      return
+    }
     
     // Store candidate data in localStorage temporarily
     localStorage.setItem('candidateData', JSON.stringify(formData))
@@ -310,24 +331,17 @@ export default function CandidateForm() {
 
               {/* Skills */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Skills (comma-separated) *
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Skills *
                 </label>
-                <input
-                  type="text"
-                  value={formData.skills.join(', ')}
+                <SkillsInput
+                  skills={formData.skills}
                   onChange={handleSkillsChange}
-                  placeholder="React, Node.js, Python, Project Management"
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Type a skill and press Enter (e.g., React, Python, Project Management)"
                 />
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {formData.skills.map((skill, index) => (
-                    <span key={index} className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
+                {formData.skills.length === 0 && (
+                  <p className="mt-1 text-sm text-red-600">At least one skill is required</p>
+                )}
               </div>
 
               {/* Submit Buttons */}
